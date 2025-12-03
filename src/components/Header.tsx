@@ -2,17 +2,20 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageToggle from "./LanguageToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/calculator", label: "Calculator" },
-    { href: "/quote", label: "Get Quote" },
-    { href: "/services", label: "Services" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: t("home") },
+    { href: "/calculator", label: t("calculator") },
+    { href: "/quote", label: t("quote") },
+    { href: "/services", label: t("services") },
+    { href: "/contact", label: t("contact") },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -49,17 +52,18 @@ const Header = () => {
         </nav>
 
         {/* CTA & Mobile Menu */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
           <a href="tel:+966539662194" className="hidden sm:flex">
             <Button variant="outline" size="sm" className="gap-2">
               <Phone className="h-4 w-4" />
               <span className="hidden lg:inline">+966 53 966 2194</span>
-              <span className="lg:hidden">Call</span>
+              <span className="lg:hidden">{t("callUs")}</span>
             </Button>
           </a>
           <Link to="/quote" className="hidden sm:block">
             <Button variant="hero" size="sm">
-              Get Quote
+              {t("quote")}
             </Button>
           </Link>
           
@@ -97,12 +101,12 @@ const Header = () => {
               <a href="tel:+966539662194" className="flex-1">
                 <Button variant="outline" className="w-full gap-2">
                   <Phone className="h-4 w-4" />
-                  Call Now
+                  {t("callUs")}
                 </Button>
               </a>
               <Link to="/quote" className="flex-1" onClick={() => setIsMenuOpen(false)}>
                 <Button variant="hero" className="w-full">
-                  Get Quote
+                  {t("quote")}
                 </Button>
               </Link>
             </div>

@@ -1,0 +1,25 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Button } from "@/components/ui/button";
+import { Globe } from "lucide-react";
+
+const LanguageToggle = () => {
+  const { language, setLanguage } = useLanguage();
+
+  const toggleLanguage = () => {
+    setLanguage(language === "en" ? "ar" : "en");
+  };
+
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={toggleLanguage}
+      className="gap-2 font-medium"
+    >
+      <Globe className="h-4 w-4" />
+      {language === "en" ? "العربية" : "English"}
+    </Button>
+  );
+};
+
+export default LanguageToggle;
