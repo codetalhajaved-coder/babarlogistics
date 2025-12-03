@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calculator, FileText, Truck, Clock, Shield, MapPin } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 const Hero = () => {
-  const { t, language } = useLanguage();
+  const { translations: t } = useAppSelector((state) => state.language);
 
   return (
     <section className="relative overflow-hidden gradient-hero">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 border-2 border-primary-foreground rounded-full" />
         <div className="absolute bottom-20 right-20 w-48 h-48 border-2 border-primary-foreground rounded-full" />
@@ -17,31 +16,27 @@ const Hero = () => {
 
       <div className="container relative py-16 md:py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
           <div className="text-primary-foreground space-y-6 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-secondary/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
               <MapPin className="h-4 w-4 text-secondary" />
-              <span>{language === "ar" ? "نخدم جميع أنحاء الرياض" : "Serving All Over Riyadh"}</span>
+              <span>{t.hero.badge}</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-secondary">{language === "ar" ? "استلام وتوصيل" : "Pick & Drop"}</span>
+              <span className="text-secondary">{t.hero.title1}</span>
               <br />
-              {language === "ar" ? "خدمة التوصيل" : "Delivery Service"}
+              {t.hero.title2}
             </h1>
             
             <p className="text-lg md:text-xl text-primary-foreground/90 max-w-xl">
-              {language === "ar" 
-                ? "حلول لوجستية سريعة وموثوقة للاحتياجات الشخصية والمدرسية والتجارية. كل شيء يوصل لباب منزلك في الرياض."
-                : "Fast, reliable logistics solutions for personal, school, and business needs. Everything delivered to your doorstep across Riyadh."}
+              {t.hero.description}
             </p>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link to="/quote">
                 <Button variant="hero" size="xl" className="w-full sm:w-auto gap-2">
                   <FileText className="h-5 w-5" />
-                  {t("getQuote")}
+                  {t.hero.getQuote}
                 </Button>
               </Link>
               <Link to="/calculator">
@@ -51,73 +46,64 @@ const Hero = () => {
                   className="w-full sm:w-auto gap-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 >
                   <Calculator className="h-5 w-5" />
-                  {t("calculateCost")}
+                  {t.hero.calculateCost}
                 </Button>
               </Link>
             </div>
 
-            {/* Trust Badges */}
             <div className="flex flex-wrap gap-6 pt-6">
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-5 w-5 text-secondary" />
-                <span>{language === "ar" ? "خدمة ٢٤/٧" : "24/7 Service"}</span>
+                <span>{t.hero.service247}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Shield className="h-5 w-5 text-secondary" />
-                <span>{language === "ar" ? "توصيل مؤمن" : "Insured Delivery"}</span>
+                <span>{t.hero.insuredDelivery}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Truck className="h-5 w-5 text-secondary" />
-                <span>{language === "ar" ? "توصيل سريع نفس اليوم" : "Same-Day Express"}</span>
+                <span>{t.hero.sameDayExpress}</span>
               </div>
             </div>
           </div>
 
-          {/* Hero Visual */}
           <div className="relative hidden lg:block">
             <div className="relative animate-float">
-              {/* Main Card */}
               <div className="bg-card rounded-2xl shadow-card p-6 max-w-sm ml-auto rtl:ml-0 rtl:mr-auto">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="h-12 w-12 rounded-full gradient-gold flex items-center justify-center">
                     <Truck className="h-6 w-6 text-secondary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground">
-                      {language === "ar" ? "توصيل سريع" : "Quick Delivery"}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? "في أي مكان بالرياض" : "Anywhere in Riyadh"}
-                    </p>
+                    <h3 className="font-semibold text-foreground">{t.hero.quickDelivery}</h3>
+                    <p className="text-sm text-muted-foreground">{t.hero.anywhereRiyadh}</p>
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{language === "ar" ? "مستندات" : "Documents"}</span>
-                    <span className="font-medium text-foreground">{language === "ar" ? "من ٢٥ ريال" : "From 25 SAR"}</span>
+                    <span className="text-muted-foreground">{t.hero.documents}</span>
+                    <span className="font-medium text-foreground">{t.hero.from25}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{language === "ar" ? "طرود" : "Parcels"}</span>
-                    <span className="font-medium text-foreground">{language === "ar" ? "من ٣٥ ريال" : "From 35 SAR"}</span>
+                    <span className="text-muted-foreground">{t.hero.parcels}</span>
+                    <span className="font-medium text-foreground">{t.hero.from35}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{language === "ar" ? "سريع" : "Express"}</span>
-                    <span className="font-medium text-foreground">{language === "ar" ? "من ٥٠ ريال" : "From 50 SAR"}</span>
+                    <span className="text-muted-foreground">{t.hero.express}</span>
+                    <span className="font-medium text-foreground">{t.hero.from50}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Floating Badge */}
               <div className="absolute -left-8 rtl:-right-8 rtl:left-auto top-1/2 -translate-y-1/2 bg-secondary text-secondary-foreground rounded-xl p-4 shadow-lg">
                 <p className="text-2xl font-bold">500+</p>
-                <p className="text-xs">{language === "ar" ? "عميل سعيد" : "Happy Customers"}</p>
+                <p className="text-xs">{t.hero.happyCustomers}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Wave Bottom */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
           <path 
