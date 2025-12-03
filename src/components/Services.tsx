@@ -12,35 +12,40 @@ import {
   Utensils,
   Box
 } from "lucide-react";
-
-const services = [
-  { icon: FileText, label: "Documents", description: "Secure document delivery" },
-  { icon: Package, label: "Parcels", description: "Package delivery" },
-  { icon: GraduationCap, label: "School Pick-up", description: "Safe student transport" },
-  { icon: Gift, label: "Gifts", description: "Special gift delivery" },
-  { icon: Flower2, label: "Flowers", description: "Fresh flower delivery" },
-  { icon: Key, label: "Keys", description: "Key handover service" },
-  { icon: Mail, label: "Letters", description: "Invitation & mail" },
-  { icon: Heart, label: "Wedding Cards", description: "Wedding invitations" },
-  { icon: Zap, label: "Chargers", description: "Electronics delivery" },
-  { icon: Droplet, label: "Water", description: "Water bottle delivery" },
-  { icon: Utensils, label: "Food Delivery", description: "Hot & cold food" },
-  { icon: Box, label: "Boxes", description: "Bulk & box items" },
-];
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 const Services = () => {
+  const { currentLanguage } = useAppSelector((state) => state.language);
+
+  const services = [
+    { icon: FileText, label: currentLanguage === 'ar' ? 'مستندات' : 'Documents', description: currentLanguage === 'ar' ? 'توصيل مستندات آمن' : 'Secure document delivery' },
+    { icon: Package, label: currentLanguage === 'ar' ? 'طرود' : 'Parcels', description: currentLanguage === 'ar' ? 'توصيل الطرود' : 'Package delivery' },
+    { icon: GraduationCap, label: currentLanguage === 'ar' ? 'توصيل المدارس' : 'School Pick-up', description: currentLanguage === 'ar' ? 'نقل آمن للطلاب' : 'Safe student transport' },
+    { icon: Gift, label: currentLanguage === 'ar' ? 'هدايا' : 'Gifts', description: currentLanguage === 'ar' ? 'توصيل هدايا خاصة' : 'Special gift delivery' },
+    { icon: Flower2, label: currentLanguage === 'ar' ? 'زهور' : 'Flowers', description: currentLanguage === 'ar' ? 'توصيل زهور طازجة' : 'Fresh flower delivery' },
+    { icon: Key, label: currentLanguage === 'ar' ? 'مفاتيح' : 'Keys', description: currentLanguage === 'ar' ? 'خدمة تسليم المفاتيح' : 'Key handover service' },
+    { icon: Mail, label: currentLanguage === 'ar' ? 'رسائل' : 'Letters', description: currentLanguage === 'ar' ? 'دعوات وبريد' : 'Invitation & mail' },
+    { icon: Heart, label: currentLanguage === 'ar' ? 'بطاقات زفاف' : 'Wedding Cards', description: currentLanguage === 'ar' ? 'دعوات الزفاف' : 'Wedding invitations' },
+    { icon: Zap, label: currentLanguage === 'ar' ? 'شواحن' : 'Chargers', description: currentLanguage === 'ar' ? 'توصيل الإلكترونيات' : 'Electronics delivery' },
+    { icon: Droplet, label: currentLanguage === 'ar' ? 'مياه' : 'Water', description: currentLanguage === 'ar' ? 'توصيل المياه' : 'Water bottle delivery' },
+    { icon: Utensils, label: currentLanguage === 'ar' ? 'توصيل طعام' : 'Food Delivery', description: currentLanguage === 'ar' ? 'طعام ساخن وبارد' : 'Hot & cold food' },
+    { icon: Box, label: currentLanguage === 'ar' ? 'صناديق' : 'Boxes', description: currentLanguage === 'ar' ? 'عناصر ضخمة وصناديق' : 'Bulk & box items' },
+  ];
+
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="container">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-1 bg-secondary/20 text-secondary-foreground rounded-full text-sm font-medium mb-4">
-            Our Services
+            {currentLanguage === 'ar' ? 'خدماتنا' : 'Our Services'}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Everything at Your <span className="text-primary">Doorstep</span>
+            {currentLanguage === 'ar' ? 'كل شيء على' : 'Everything at Your'} <span className="text-primary">{currentLanguage === 'ar' ? 'باب منزلك' : 'Doorstep'}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            From documents to parcels, school pick-ups to special deliveries — we handle it all with care and speed.
+            {currentLanguage === 'ar' 
+              ? 'من المستندات إلى الطرود، توصيل المدارس إلى التوصيلات الخاصة — نتعامل مع كل شيء بعناية وسرعة.'
+              : 'From documents to parcels, school pick-ups to special deliveries — we handle it all with care and speed.'}
           </p>
         </div>
 

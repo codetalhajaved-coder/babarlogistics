@@ -1,86 +1,94 @@
 import { Link } from "react-router-dom";
-import { Truck, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { Truck, Phone, Mail, MapPin, MessageCircle, Send } from "lucide-react";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { CONTACT, getWhatsAppLink, getTelegramLink } from "@/config/contact";
 
 const Footer = () => {
-  const { t, language } = useLanguage();
+  const { translations: t } = useAppSelector((state) => state.language);
 
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
                 <Truck className="h-6 w-6 text-secondary-foreground" />
               </div>
               <div>
-                <h3 className="font-bold text-lg">{language === "ar" ? "بابر لوجستيك" : "Babar Logistics"}</h3>
-                <p className="text-xs text-primary-foreground/70">{language === "ar" ? "شركة BLC" : "BLC Company"}</p>
+                <h3 className="font-bold text-lg">{t.footer.companyName}</h3>
+                <p className="text-xs text-primary-foreground/70">{t.footer.companyTag}</p>
               </div>
             </div>
             <p className="text-sm text-primary-foreground/80">
-              {t("footerDesc")}
+              {t.footer.description}
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-secondary">{t("quickLinks")}</h4>
+            <h4 className="font-semibold mb-4 text-secondary">{t.footer.quickLinks}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:text-secondary transition-colors">{t("home")}</Link></li>
-              <li><Link to="/calculator" className="hover:text-secondary transition-colors">{t("calculator")}</Link></li>
-              <li><Link to="/quote" className="hover:text-secondary transition-colors">{t("quote")}</Link></li>
-              <li><Link to="/services" className="hover:text-secondary transition-colors">{t("services")}</Link></li>
-              <li><Link to="/contact" className="hover:text-secondary transition-colors">{t("contact")}</Link></li>
+              <li><Link to="/" className="hover:text-secondary transition-colors">{t.nav.home}</Link></li>
+              <li><Link to="/calculator" className="hover:text-secondary transition-colors">{t.nav.calculator}</Link></li>
+              <li><Link to="/quote" className="hover:text-secondary transition-colors">{t.nav.quote}</Link></li>
+              <li><Link to="/services" className="hover:text-secondary transition-colors">{t.nav.services}</Link></li>
+              <li><Link to="/contact" className="hover:text-secondary transition-colors">{t.nav.contact}</Link></li>
             </ul>
           </div>
 
-          {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4 text-secondary">{t("services")}</h4>
+            <h4 className="font-semibold mb-4 text-secondary">{t.nav.services}</h4>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li>{language === "ar" ? "توصيل المستندات" : "Document Delivery"}</li>
-              <li>{language === "ar" ? "توصيل الطرود والحزم" : "Parcel & Package Delivery"}</li>
-              <li>{language === "ar" ? "استلام وتوصيل المدارس" : "School Pick & Drop"}</li>
-              <li>{language === "ar" ? "النقل الشخصي" : "Personal Transportation"}</li>
-              <li>{language === "ar" ? "توصيل سريع نفس اليوم" : "Same-Day Express"}</li>
-              <li>{language === "ar" ? "حلول الشركات" : "Corporate Solutions"}</li>
+              <li>{t.services.documentDelivery}</li>
+              <li>{t.services.parcelDelivery}</li>
+              <li>{t.services.schoolPickDrop}</li>
+              <li>{t.services.personalTransport}</li>
+              <li>{t.services.sameDayExpress}</li>
+              <li>{t.services.corporateSolutions}</li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4 text-secondary">{t("contactInfo")}</h4>
+            <h4 className="font-semibold mb-4 text-secondary">{t.footer.contactInfo}</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-secondary" />
-                <a href="tel:+966539662194" className="hover:text-secondary transition-colors">
-                  +966 53 966 2194
+                <a href={`tel:${CONTACT.phone}`} className="hover:text-secondary transition-colors">
+                  {CONTACT.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <MessageCircle className="h-4 w-4 text-secondary" />
                 <a 
-                  href="https://wa.me/966539662194" 
+                  href={getWhatsAppLink()} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-secondary transition-colors"
                 >
-                  WhatsApp
+                  {t.common.whatsapp}
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Send className="h-4 w-4 text-secondary" />
+                <a 
+                  href={getTelegramLink()} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-secondary transition-colors"
+                >
+                  {t.common.telegram}
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-secondary" />
-                <a href="mailto:info@babarlogistics.com" className="hover:text-secondary transition-colors">
-                  info@babarlogistics.com
+                <a href={`mailto:${CONTACT.email}`} className="hover:text-secondary transition-colors">
+                  {CONTACT.email}
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-secondary mt-0.5" />
                 <span className="text-primary-foreground/80">
-                  {language === "ar" ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia"}
+                  {t.footer.location}
                 </span>
               </li>
             </ul>
@@ -89,10 +97,10 @@ const Footer = () => {
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-primary-foreground/70">
-            © {new Date().getFullYear()} {language === "ar" ? "شركة بابر لوجستيك (BLC)." : "Babar Logistic Company (BLC)."} {t("allRightsReserved")}
+            © {new Date().getFullYear()} {t.footer.companyName} (BLC). {t.footer.allRightsReserved}
           </p>
           <p className="text-sm text-primary-foreground/70">
-            {language === "ar" ? "نخدم الرياض وجميع أنحاء المملكة العربية السعودية" : "Serving Riyadh & across Saudi Arabia"}
+            {t.footer.servingArea}
           </p>
         </div>
       </div>

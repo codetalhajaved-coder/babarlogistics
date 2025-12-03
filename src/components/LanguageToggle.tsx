@@ -1,23 +1,21 @@
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppSelector';
+import { toggleLanguage } from '@/store/languageSlice';
 import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
 
 const LanguageToggle = () => {
-  const { language, setLanguage } = useLanguage();
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "ar" : "en");
-  };
+  const dispatch = useAppDispatch();
+  const { currentLanguage } = useAppSelector((state) => state.language);
 
   return (
     <Button
       variant="ghost"
       size="sm"
-      onClick={toggleLanguage}
+      onClick={() => dispatch(toggleLanguage())}
       className="gap-2 font-medium"
     >
       <Globe className="h-4 w-4" />
-      {language === "en" ? "العربية" : "English"}
+      {currentLanguage === "en" ? "العربية" : "English"}
     </Button>
   );
 };

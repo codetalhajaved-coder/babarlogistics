@@ -2,20 +2,20 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useAppSelector } from "@/hooks/useAppSelector";
 import LanguageToggle from "./LanguageToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { t } = useLanguage();
+  const { translations: t } = useAppSelector((state) => state.language);
 
   const navLinks = [
-    { href: "/", label: t("home") },
-    { href: "/calculator", label: t("calculator") },
-    { href: "/quote", label: t("quote") },
-    { href: "/services", label: t("services") },
-    { href: "/contact", label: t("contact") },
+    { href: "/", label: t.nav.home },
+    { href: "/calculator", label: t.nav.calculator },
+    { href: "/quote", label: t.nav.quote },
+    { href: "/services", label: t.nav.services },
+    { href: "/contact", label: t.nav.contact },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -58,12 +58,12 @@ const Header = () => {
             <Button variant="outline" size="sm" className="gap-2">
               <Phone className="h-4 w-4" />
               <span className="hidden lg:inline">+966 53 966 2194</span>
-              <span className="lg:hidden">{t("callUs")}</span>
+              <span className="lg:hidden">{t.cta.callUs}</span>
             </Button>
           </a>
           <Link to="/quote" className="hidden sm:block">
             <Button variant="hero" size="sm">
-              {t("quote")}
+              {t.nav.quote}
             </Button>
           </Link>
           
@@ -101,12 +101,12 @@ const Header = () => {
               <a href="tel:+966539662194" className="flex-1">
                 <Button variant="outline" className="w-full gap-2">
                   <Phone className="h-4 w-4" />
-                  {t("callUs")}
+                  {t.cta.callUs}
                 </Button>
               </a>
               <Link to="/quote" className="flex-1" onClick={() => setIsMenuOpen(false)}>
                 <Button variant="hero" className="w-full">
-                  {t("quote")}
+                  {t.nav.quote}
                 </Button>
               </Link>
             </div>

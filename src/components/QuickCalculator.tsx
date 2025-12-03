@@ -4,18 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calculator, ArrowRight } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
-const RATE_PER_MILE = 5; // SAR per mile
+const RATE_PER_MILE = 5;
 
 const QuickCalculator = () => {
   const [distance, setDistance] = useState("");
-  const { t } = useLanguage();
+  const { translations: t } = useAppSelector((state) => state.language);
   
   const calculateTotal = () => {
     const miles = parseFloat(distance) || 0;
-    const total = miles * RATE_PER_MILE;
-    return total.toFixed(2);
+    return (miles * RATE_PER_MILE).toFixed(2);
   };
 
   const total = calculateTotal();
@@ -32,19 +31,18 @@ const QuickCalculator = () => {
                 <Calculator className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-foreground">{t("quickCostEstimate")}</h3>
-                <p className="text-sm text-muted-foreground">{t("instantPricing")}</p>
+                <h3 className="text-xl font-bold text-foreground">{t.calculator.quickCostEstimate}</h3>
+                <p className="text-sm text-muted-foreground">{t.calculator.instantPricing}</p>
               </div>
             </div>
 
             <div className="space-y-4">
-              {/* Distance */}
               <div>
-                <Label htmlFor="distance" className="text-sm font-medium">{t("distance")}</Label>
+                <Label htmlFor="distance" className="text-sm font-medium">{t.calculator.distance}</Label>
                 <Input
                   id="distance"
                   type="number"
-                  placeholder={t("enterDistance")}
+                  placeholder={t.calculator.enterDistance}
                   value={distance}
                   onChange={(e) => setDistance(e.target.value)}
                   className="mt-1 text-lg"
@@ -52,11 +50,10 @@ const QuickCalculator = () => {
                 />
               </div>
 
-              {/* Results */}
               {hasInput && (
                 <div className="bg-muted rounded-lg p-4 mt-4">
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold">{t("total")}</span>
+                    <span className="font-semibold">{t.calculator.total}</span>
                     <span className="font-bold text-primary text-2xl">{total} SAR</span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">
@@ -67,7 +64,7 @@ const QuickCalculator = () => {
 
               <Link to="/calculator" className="block pt-2">
                 <Button variant="default" className="w-full gap-2">
-                  {t("fullCalculator")}
+                  {t.calculator.fullCalculator}
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" />
                 </Button>
               </Link>
@@ -77,13 +74,13 @@ const QuickCalculator = () => {
           {/* Info */}
           <div className="space-y-6">
             <span className="inline-block px-4 py-1 bg-secondary/20 text-secondary-foreground rounded-full text-sm font-medium">
-              {t("transparentPricing")}
+              {t.calculator.transparentPricing}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              {t("knowCosts")} <span className="text-primary">{t("upfront")}</span>
+              {t.calculator.knowCosts} <span className="text-primary">{t.calculator.upfront}</span>
             </h2>
             <p className="text-muted-foreground">
-              {t("nohiddenFees")}
+              {t.calculator.nohiddenFees}
             </p>
             
             <div className="space-y-4">
@@ -92,8 +89,8 @@ const QuickCalculator = () => {
                   <span className="text-sm font-bold text-primary">1</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground">{t("step1Title")}</h4>
-                  <p className="text-sm text-muted-foreground">{t("step1Desc")}</p>
+                  <h4 className="font-semibold text-foreground">{t.calculator.step1Title}</h4>
+                  <p className="text-sm text-muted-foreground">{t.calculator.step1Desc}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -101,8 +98,8 @@ const QuickCalculator = () => {
                   <span className="text-sm font-bold text-primary">2</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground">{t("step2Title")}</h4>
-                  <p className="text-sm text-muted-foreground">{t("step2Desc")}</p>
+                  <h4 className="font-semibold text-foreground">{t.calculator.step2Title}</h4>
+                  <p className="text-sm text-muted-foreground">{t.calculator.step2Desc}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -110,8 +107,8 @@ const QuickCalculator = () => {
                   <span className="text-sm font-bold text-primary">3</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground">{t("step3Title")}</h4>
-                  <p className="text-sm text-muted-foreground">{t("step3Desc")}</p>
+                  <h4 className="font-semibold text-foreground">{t.calculator.step3Title}</h4>
+                  <p className="text-sm text-muted-foreground">{t.calculator.step3Desc}</p>
                 </div>
               </div>
             </div>
